@@ -1,2 +1,4 @@
 # project-template
-Minimal template for starting an editing project
+
+
+Minimal template for starting an editing project in HC MID.
