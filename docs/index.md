@@ -15,3 +15,8 @@ projName: String = Template MID project
 scala> println("Length of name:  " + projName.size)
 Length of name:  20
 ```
+
+
+## About MID projects
+
+-  [Organization of files and directories](dirlayout)

@@ -12,3 +12,8 @@ You can include code blocks.
 val projName = "Template MID project"
 println("Length of name:  " + projName.size)
 ```
+
+
+## About MID projects
+
+-  [Organization of files and directories](dirlayout)
