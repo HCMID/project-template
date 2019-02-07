@@ -1,24 +1,10 @@
 
 # HC MID project template
 
+You can clone a template for an HC MID project from the github repository at <https://github.com/HCMID/project-template>.
 
-
-Add markdown folders to the `tut` directory, then run the `tut` task in your `sbt` session.
-
-If you include code blocks in your markdown tagged `tut`, the code will be run and included in the output in the `docs` directory.  Compare
-
-```scala
-scala> val projName = "Template MID project"
-projName: String = Template MID project
-
-scala> println("Length of name:  " + projName.size)
-Length of name:  20
-```
-
-
-## About MID projects
-
+Here's how you can use your project:
 
 -  [Workflow](workflow)
+-  [Documenting your project](docs)
 -  [Organization of files and directories](dirlayout)
--  [Documentation](docs)
