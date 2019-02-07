@@ -17,7 +17,7 @@ Edit an existing file or create a new file in the `dse` directory with a name en
 
 ### Edit XML documents
 
-Edit one of the files
+Edit one of the XML files in the `editions` directory.  The file name must match the information for its URN in the `editions/citation.cex`.
 
 ### Validate your work
 
