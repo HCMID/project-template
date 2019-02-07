@@ -1,10 +1,4 @@
----
-layout: page
-title: "MID template: organization of files and directories"
----
-
-
-## Overview of files and directory layout
+# Overview of files and directory layout
 
 
 ### Editing directories

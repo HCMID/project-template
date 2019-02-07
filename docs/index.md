@@ -1,7 +1,6 @@
----
-layout: page
-title: Project web site
----
+
+# HC MID project template
+
 
 
 Add markdown folders to this directory.  Run the `tut` task in your `sbt` session.
@@ -19,4 +18,6 @@ Length of name:  20
 
 ## About MID projects
 
+
+-  [Workflow](workflow)
 -  [Organization of files and directories](dirlayout)
