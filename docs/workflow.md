@@ -2,24 +2,24 @@
 
 
 
-## Before
+### Before beginning work
 
 1. start an sbt console in this directory:  `sbt console`
 2. load the validating script:  `:load scripts/validate.sc`
 3. Open a text editor like Atom to edit tables in the `dse` directory and XML files in the `editions` directory
 
-## Edit DSE records
+### Edit DSE records
 
 Edit an existing file or create a new file in the `dse` directory with a name ending in `.cex`.  It should have a header line like this
 
     passage#imageroi#surface
 
 
-## Edit XML documents
+### Edit XML documents
 
 Edit one of the files
 
-## Validate your work
+### Validate your work
 
 In the sbt console, run
 
