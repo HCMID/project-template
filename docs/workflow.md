@@ -1,8 +1,8 @@
 ## Regular workflow
 
+(If you're starting a new project, see [how to configure a new project](../configuration). )
 
-
-### Before beginning work
+### When beginning a work session
 
 1. start an sbt console in this directory:  `sbt console`
 2. load the validating script:  `:load scripts/validate.sc`
