@@ -1,7 +1,4 @@
-
-# HC MID project template
-
-
+## Adding documentation to your project
 
 Add markdown folders to the `tut` directory, then run the `tut` task in your `sbt` session.
 
@@ -14,11 +11,3 @@ projName: String = Template MID project
 scala> println("Length of name:  " + projName.size)
 Length of name:  20
 ```
-
-
-## About MID projects
-
-
--  [Workflow](workflow)
--  [Organization of files and directories](dirlayout)
--  [Documentation](docs)
