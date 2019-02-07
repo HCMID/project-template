@@ -7,4 +7,5 @@ Here's how you can use your project:
 
 -  [Workflow](workflow)
 -  [Documenting your project](docs)
+-  [Configuring a new project](configuration)
 -  [Organization of files and directories](dirlayout)

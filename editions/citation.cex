@@ -1,1 +1,2 @@
 Text URN#Format#Document#Namespace mapping#Citation model
+urn:cts:hcmid:TEMPLATE.dummy.v1:#xml#TEI-ABProse.xml#tei->http://www.tei-c.org/ns/1.0#/tei:TEI/tei:text/tei:body/tei:div[@n = '?']/tei:ab[@n = '?']

@@ -100,4 +100,4 @@ println("\n\nValidate paleography:")
 println("\n\tpaleo")
 
 println("\n\nValidate editorial work for a given page:")
-println("\n\tvalidate(PAGEURN)\n\n")
+println("\n\tvalidate(\"PAGEURN\")\n\n")
