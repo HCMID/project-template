@@ -6,98 +6,61 @@ import scala.io.Source
 import java.io.PrintWriter
 
 
-val readerMap =   Map(
-  "MidProseABReader" ->   MidProseABReader.readers,
-  "MidVerseLReader" -> MidVerseLReader.readers
+
+// Normally, just "." in an MID project
+val repoRoot = "."
+
+
+// Standard way to validate:
+// 1. define readers your project uses
+val readerMap : Map[String, Vector[MidMarkupReader]] = Map(
+  "MidProseABDiplomatic" ->   Vector(MidProseABDiplomatic)
 )
 
-val orthoMap = Map(
-  "Latin23" -> Latin23Alphabet
+// 2. define orthographies your project uses
+/*
+val orthoMap : Map[String, MidOrthography] = Map(
+  "Latin23" -> Latin23
 )
+*/
+
+// 3. Build a validator. This requires ortho map as well as a CITE library.
+val repo = EditorsRepo(repoRoot, readerMap)
+
+def validate(pg: String) = {
+  val lib =    repo.library
+  val dseValidator = DseValidator(lib)
+  val validators = Vector(dseValidator)
+  val rslts = LibraryValidator.validate(lib, validators)
+
+  val formatted =  TestResultGroup("Valdation results", rslts)
+  val output = "validation/report.md"
+  new PrintWriter(output){write(formatted.markdown);close;}
+  println("Results of validation are in " + output)
 
 
+  try {
+    val pgUrn = Cite2Urn(pg)
+    val ict = repo.dse.ictForSurface(pgUrn)
+    val verify = Vector(
+      "# Verification for page " + pgUrn.objectComponent,
+      "Use this link to check for completeness of your editing:",
+      s"- verify [page ${pg}](${ict})"
+    ).mkString("\n\n")
 
-def readersForString(readerName: String): Vector[MidMarkupReader] = {
-  if (readerMap.keySet.contains(readerName)){
-    readerMap(readerName)
-  } else {
-    throw (new Exception(s"${readerName} is not a recognized MidReader in this project."))
+    val verifyFile = "validation/verify.md"
+    new PrintWriter(verifyFile){write(verify);close;}
+    println("Link to verify completeness is in " + verifyFile)
+  } catch {
+    case t: Throwable => {
+      println("Wasn't able to create a verification view.")
+      println("Error message was:\n" + t)
+    }
   }
-}
 
-def orthoForString(orthoName: String): MidOrthography = {
-  if (orthoMap.keySet.contains(orthoName)){
-    orthoMap(orthoName)
-  } else {
-    throw (new Exception(s"${orthoName} is not a recognized Orthography in this project."))
-  }
-}
-
-
-def readerMappings(csvSource : String = "editions/readers.csv") = {
-  // drop header row:
-  val csvRows = Source.fromFile(csvSource).getLines.toVector.tail
-  val pairs = for (row <- csvRows) yield {
-    val parts = row.split(",").toVector
-    ReadersPairing(CtsUrn(parts(0)), readersForString(parts(1)))
-  }
-  pairs.toVector
-}
-
-def orthoMappings(csvSource : String = "editions/orthographies.csv") = {
-  val csvRows = Source.fromFile(csvSource).getLines.toVector.tail
-  val pairs = for (row <- csvRows) yield {
-    val parts = row.split(",").toVector
-    OrthoPairing(CtsUrn(parts(0)), orthoForString(parts(1)))
-  }
-  pairs.toVector
-}
-
-
-val repo = EditorsRepo(".")
-val midValidator = Validator(repo, readerMappings(), orthoMappings())
-val reporter = ValidationReporter(midValidator)
-
-
-
-def validate(uString : String) = {
-  reporter.validate(uString)
 }
 
 
-def paleo: Unit = {
-  val f = "paleography/bern88.cex"
-  val cex = Source.fromFile(f).getLines.toVector.tail.mkString("\n")
-  val  paleoResults = PaleographyResults(cex)
 
-  val home = StringBuilder.newBuilder
-  home.append(s"#Paleography validation\n\n")
-
-
-  // 1.  Paleography validation
-  if (paleoResults.bad.isEmpty ) {
-    home.append(s"-  ![errors](${okImg}) Paleography validation: there were no errors. \n")
-  } else {
-    println("There were errors finding paleographic observations.")
-    home.append("-  Paleography validation: there were errors. ")
-  }
-
-  val hdr = "| reading     | image     |\n| :------------- | :------------- |\n"
-
-
-  val imgs = ImageManager()
-  val rows = for (obs <- paleoResults.good) yield {
-    s"| ${obs.reading} | ${imgs.markdown(obs.img)} |"
-  }
-  home.append("\n\n"+ hdr + rows.mkString)
-
-  new PrintWriter("validation/paleography.md"){write(home.toString);close;}
-  println("\nPaleography report written to  file validation/paleography.md.")
-}
-
-
-println("\n\nValidate paleography:")
-println("\n\tpaleo")
-
-println("\n\nValidate editorial work for a given page:")
-println("\n\tvalidate(\"PAGEURN\")\n\n")
+println("\n\nTo validate and verify you work for a page, run:\n")
+println("\tvalidate(\"PAGE_URN\")\n\n")
