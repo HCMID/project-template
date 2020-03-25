@@ -1,6 +1,8 @@
 // This is the declaration of a CITE collection of text-bearing surfaces.
 // We concatenate data from the codices-data directory with this.
-
+//
+// The example entry here is for Bern codex 88.  You should be able to
+// substitute the URN for your MS here to have a working configuration.
 #!citecollections
 URN#Description#Labelling property#Ordering property#License
 urn:cite2:mid:bern88pages.v1:#Pages of codex Bern 88#urn:cite2:mid:bern88pages.v1.label:#urn:cite2:mid:bern88pages.v1.sequence:#CC-attribution-share-alike
